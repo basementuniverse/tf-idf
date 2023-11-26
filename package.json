@@ -1,6 +1,6 @@
 {
   "name": "@basementuniverse/tf-idf",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Search for terms in array of documents using TF-IDF",
   "main": "build/index.js",
   "scripts": {
