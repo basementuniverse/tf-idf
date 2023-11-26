@@ -14,7 +14,8 @@ export default class Corpus<T = string> {
   private readonly DEFAULT_PROCESSOR = (input: T) => (input as string)
     .toLowerCase()
     .split(/\W+/)
-    .filter(Boolean);
+    .filter(Boolean)
+    .filter(w => w.length >= Corpus.MIN_TERM_LENGTH);
 
   public documents: Document<T>[];
 
@@ -43,15 +44,13 @@ export default class Corpus<T = string> {
       .filter(term => term.length >= Corpus.MIN_TERM_LENGTH);
 
     return this.documents
-      .map(
-        (document, i) => ({
-          document,
-          score: terms.reduce(
-            (score, term) => score + this.tfidf(term, document, partial),
-            0
-          ) / terms.length,
-        })
-      )
+      .map(document => ({
+        document,
+        score: terms.reduce(
+          (score, term) => score + this.tfidf(term, document, partial),
+          0
+        ) / terms.length,
+      }))
       .filter(result => result.score > 0)
       .sort((a, b) => b.score - a.score)
       .map(result => ({

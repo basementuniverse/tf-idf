@@ -5,7 +5,8 @@ class Corpus {
         this.DEFAULT_PROCESSOR = (input) => input
             .toLowerCase()
             .split(/\W+/)
-            .filter(Boolean);
+            .filter(Boolean)
+            .filter(w => w.length >= Corpus.MIN_TERM_LENGTH);
         this.processor = processor !== null && processor !== void 0 ? processor : this.DEFAULT_PROCESSOR;
         this.documents = documents.map(document => this.processDocument(document));
     }
@@ -24,7 +25,7 @@ class Corpus {
             .filter(Boolean)
             .filter(term => term.length >= Corpus.MIN_TERM_LENGTH);
         return this.documents
-            .map((document, i) => ({
+            .map(document => ({
             document,
             score: terms.reduce((score, term) => score + this.tfidf(term, document, partial), 0) / terms.length,
         }))
