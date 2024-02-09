@@ -1,7 +1,7 @@
 {
   "name": "@basementuniverse/tf-idf",
   "version": "0.0.3",
-  "description": "Search for terms in array of documents using TF-IDF",
+  "description": "Search for terms in an array of documents using TF-IDF",
   "main": "build/index.js",
   "scripts": {
     "build": "tsc",
